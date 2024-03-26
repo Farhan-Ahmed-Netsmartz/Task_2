@@ -6,19 +6,25 @@ services:
     container_name: dev
     ports:
       - "6001:6000"
+    networks:
+      - setup-net
 
   uat:
     build: .
     container_name: uat
     ports:
       - "6002:6000"
+    networks:
+      - setup-net
 
   prod:
     build: .
     container_name: prod
     ports:
       - "6003:6000"
-
+    networks:
+      - setup-net
+      
   database:
     build: ./Database
     container_name: database
@@ -26,7 +32,11 @@ services:
       - kanban-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
-      
+    networks:
+      - setup-net
 
 volumes:
   kanban-data:
+  
+networks:
+  setup-net:

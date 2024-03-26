@@ -11,8 +11,10 @@ services:
       - POSTGRES_PASSWORD=kanban
     ports:
       - 8080:8080
-    depends_on:
-      - database
+    networks:
+      - devnet
+   
+    
 
   kanban-ui:
     build: ./kanban-ui
@@ -21,4 +23,14 @@ services:
       - 4200:80
     links:
       - kanban-app
+    networks:
+      - devnet
 
+networks:
+  devnet:
+  
+# External network reference
+networks:
+  devnet:
+    external:
+      name: setup-dockerfile_setup-net
